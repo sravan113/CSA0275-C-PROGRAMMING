@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+int findMajorityElement(int arr[], int n) {
+    int majorityElement = arr[0];
+    int count = 1;
+
+    for (int i = 1; i < n; i++) {
+        if (arr[i] == majorityElement) {
+            count++;
+        } else {
+            count--;
+        }
+
+        if (count == 0) {
+            majorityElement = arr[i];
+            count = 1;
+        }
+    }
+
+    // At this point, majorityElement might be the majority element, but we need to verify it
+    count = 0;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == majorityElement) {
+            count++;
+        }
+    }
+
+    if (count > n / 2) {
+        return majorityElement;
+    } else {
+        return -1; // No majority element found
+    }
+}
+
+int main() {
+    int arr[] = {3, 3, 4, 2, 4, 4, 2, 4, 4};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    int majorityElement = findMajorityElement(arr, n);
+
+    if (majorityElement != -1) {
+        printf("Majority element is: %d\n", majorityElement);
+    } else {
+        printf("No majority element found\n");
+    }
+
+    return 0;
+}
